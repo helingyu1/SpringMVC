@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/mvc
+	   					   http://www.springframework.org/schema/mvc/spring-mvc.xsd
+						   http://www.springframework.org/schema/beans
+						   http://www.springframework.org/schema/beans/spring-beans.xsd
+						   http://www.springframework.org/schema/context
+						   http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+
+	<context:component-scan base-package="com.hly.controller" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
+
+	<mvc:resources mapping="/assets/**" location="/assets/" />
+
+	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="favorPathExtension" value="false" />
+		<property name="favorParameter" value="false" />
+		<property name="ignoreAcceptHeader" value="false" />
+		<property name="mediaTypes">
+			<value>
+				atom=application/atom+xml
+				html=text/html
+				json=application/json
+				*=*/*
+			</value>
+		</property>
+	</bean>
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/pages/" />
+		<property name="suffix" value=".jsp" />
+		<property name="contentType" value="text/html; charset=utf-8"/>
+	</bean>
+
+</beans>
