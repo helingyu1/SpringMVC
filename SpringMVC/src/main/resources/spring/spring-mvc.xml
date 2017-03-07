@@ -16,6 +16,10 @@
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
+	<!-- spring 拦截器 -->
+	<mvc:interceptors>
+		<bean class="com.hly.interceptor.TestInterceptor"></bean>	
+	</mvc:interceptors>
 	<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
 
 	<mvc:resources mapping="/assets/**" location="/assets/" />

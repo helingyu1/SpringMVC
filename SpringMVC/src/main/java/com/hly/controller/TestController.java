@@ -3,13 +3,18 @@ package com.hly.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hly.activemq.MessageSender;
+import com.hly.entity.User;
+import com.hly.service.UserService;
 
 @Controller
 @RequestMapping("/test/*")
@@ -18,6 +23,8 @@ public class TestController {
 	
 	@Autowired
 	MessageSender sender;
+	@Resource
+	UserService userService;
 
 	@RequestMapping(value = "login")
 	@ResponseBody
@@ -29,5 +36,12 @@ public class TestController {
 		map.put("code", "0000");
 		map.put("msg", "success");
 		return map;
+	}
+	
+	@RequestMapping(value = "test")
+	@ResponseBody
+	public User doTest(){
+		User user = userService.findUser(1);
+		return user;
 	}
 }
